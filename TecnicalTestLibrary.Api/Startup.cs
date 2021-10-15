@@ -12,6 +12,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Application;
 using TecnicalTestLibrary.Api.ApplicationService;
@@ -55,7 +56,9 @@ namespace TecnicalTestLibrary.Api
             services.AddScoped<IBookDomain, BookDomainService>();
             services.AddScoped<IBookApplication, BookApplicationService>();
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(opt =>
+                opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TecnicalTestLibrary.Api", Version = "v1" });

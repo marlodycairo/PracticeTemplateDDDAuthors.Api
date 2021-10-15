@@ -13,7 +13,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
     public class BookRepository : IBookRepository
     {
         private readonly ApplicationDbContext context;
-        private const int maximumAllowed = 2;
+        private const int maximumAllowed = 5;
 
         public BookRepository(ApplicationDbContext context)
         {
@@ -36,7 +36,9 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
         public async Task<IEnumerable<Book>> GetAll()
         {
-            return await context.Books.ToListAsync();
+            return await context.Books
+                .Include(p => p.Author)
+                .ToListAsync();
         }
 
         public async Task<Book> GetById(int id)
@@ -60,7 +62,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
                 throw new Exception("Unable to register the book, the maximum allowed has been reached");
             }
 
-            var authorBookExist = await context.Books.AnyAsync(p => p.Author.Id == book.AuthorId);
+            var authorBookExist = await context.Authors.AnyAsync(p => p.Id == book.AuthorId);
 
             if (!authorBookExist)
             {
