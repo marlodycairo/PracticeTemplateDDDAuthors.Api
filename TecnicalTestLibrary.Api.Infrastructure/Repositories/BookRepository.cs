@@ -13,6 +13,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
     public class BookRepository : IBookRepository
     {
         private readonly ApplicationDbContext context;
+        private const int maximumAllowed = 2;
 
         public BookRepository(ApplicationDbContext context)
         {
@@ -52,6 +53,20 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
                 throw new Exception("The book already exist.");
             }
 
+            var numberOfBooks = await context.Books.CountAsync();
+
+            if (numberOfBooks >= maximumAllowed)
+            {
+                throw new Exception("Unable to register the book, the maximum allowed has been reached");
+            }
+
+            var authorBookExist = await context.Books.AnyAsync(p => p.Author.Id == book.AuthorId);
+
+            if (!authorBookExist)
+            {
+                throw new Exception("The author is not registered");
+            }
+
             await context.Books.AddAsync(book);
 
             await context.SaveChangesAsync();
@@ -73,6 +88,21 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
             await context.SaveChangesAsync();
 
             return book;
+        }
+
+        //MaximumAllowedBooks
+        public async Task<bool> MaximumAllowedBooks()
+        {
+            var numberOfBooks = await context.Books.CountAsync();
+
+            if (numberOfBooks >= maximumAllowed)
+            {
+                throw new Exception("Unable to register the book, the maximum allowed has been reached");
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

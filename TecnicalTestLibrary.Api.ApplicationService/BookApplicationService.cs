@@ -4,35 +4,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Application;
+using TecnicalTestLibrary.Api.Domain;
 using TecnicalTestLibrary.Api.Domain.Models;
 
 namespace TecnicalTestLibrary.Api.ApplicationService
 {
     public class BookApplicationService : IBookApplication
     {
-        public Task Delete(int id)
+        private readonly IBookDomain bookDomain;
+
+        public BookApplicationService(IBookDomain bookDomain)
         {
-            throw new NotImplementedException();
+            this.bookDomain = bookDomain;
         }
 
-        public Task<IEnumerable<BookDto>> GetAll()
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            await bookDomain.Delete(id);
         }
 
-        public Task<BookDto> GetById(int id)
+        public async Task<IEnumerable<BookDto>> GetAll()
         {
-            throw new NotImplementedException();
+            return await bookDomain.GetAll();
         }
 
-        public Task<BookDto> Insert(BookDto book)
+        public async Task<BookDto> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await bookDomain.GetById(id);
         }
 
-        public Task<BookDto> Update(BookDto book)
+        public async Task<BookDto> Insert(BookDto book)
         {
-            throw new NotImplementedException();
+            return await bookDomain.Insert(book);
+        }
+
+        public async Task<BookDto> Update(BookDto book)
+        {
+            return await bookDomain.Update(book);
         }
     }
 }

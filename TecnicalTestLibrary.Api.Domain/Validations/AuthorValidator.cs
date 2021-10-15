@@ -13,15 +13,16 @@ namespace TecnicalTestLibrary.Api.Domain.Validations
         public AuthorValidator()
         {
             RuleFor(p => p.FullName).NotNull()
-                .NotEmpty().WithMessage("{PropertyName} All data marked with an asterisk are required.");
+                .NotEmpty().WithMessage("You must enter the {PropertyName} is required.");
 
-            RuleFor(p => p.BirthDate).NotEmpty().WithMessage("All data marked with an asterisk are required.");
+            RuleFor(p => p.BirthDate).NotEmpty().WithMessage("The {PropertyName} is required.");
 
             RuleFor(p => p.CityOrigin).NotNull()
-                .NotEmpty().WithMessage("All data marked with an asterisk are required.");
+                .NotEmpty().WithMessage("The {PropertyName} is required.");
 
             RuleFor(p => p.EMail).NotNull()
-                .NotEmpty().WithMessage("All data marked with an asterisk are required.");
+                .NotEmpty().WithMessage("The {PropertyName} is required.")
+                .EmailAddress(FluentValidation.Validators.EmailValidationMode.Net4xRegex).WithMessage("You must enter a valid EMail address.");
         }
     }
 }

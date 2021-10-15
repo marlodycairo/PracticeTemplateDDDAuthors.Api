@@ -1,38 +1,66 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Domain;
 using TecnicalTestLibrary.Api.Domain.Models;
+using TecnicalTestLibrary.Api.Infrastructure.Entities;
+using TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories;
 
 namespace TecnicalTestLibrary.Api.DomainService
 {
     public class BookDomainService : IBookDomain
     {
-        public Task Delete(int id)
+        private readonly IBookRepository bookRepository;
+        private readonly IMapper mapper;
+
+        public BookDomainService(IBookRepository bookRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            this.bookRepository = bookRepository;
+            this.mapper = mapper;
         }
 
-        public Task<IEnumerable<BookDto>> GetAll()
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            await bookRepository.Delete(id);
         }
 
-        public Task<BookDto> GetById(int id)
+        public async Task<IEnumerable<BookDto>> GetAll()
         {
-            throw new NotImplementedException();
+            var books = await bookRepository.GetAll();
+
+            var booksDto = mapper.Map<IEnumerable<BookDto>>(books);
+
+            return booksDto;
         }
 
-        public Task<BookDto> Insert(BookDto book)
+        public async Task<BookDto> GetById(int id)
         {
-            throw new NotImplementedException();
+            var book = await bookRepository.GetById(id);
+
+            var bookDto = mapper.Map<BookDto>(book);
+
+            return bookDto;
         }
 
-        public Task<BookDto> Update(BookDto book)
+        public async Task<BookDto> Insert(BookDto bookDto)
         {
-            throw new NotImplementedException();
+            var book = mapper.Map<Book>(bookDto);
+
+            await bookRepository.Insert(book);
+
+            return bookDto;
+        }
+
+        public async Task<BookDto> Update(BookDto bookDto)
+        {
+            var book = mapper.Map<Book>(bookDto);
+
+            await bookRepository.Update(book);
+
+            return bookDto;
         }
     }
 }
