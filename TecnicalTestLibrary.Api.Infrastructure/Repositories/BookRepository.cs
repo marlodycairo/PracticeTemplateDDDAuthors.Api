@@ -26,7 +26,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
             if (book == null)
             {
-                throw new Exception("The entity is null.");
+                throw new Exception("The book is null.");
             }
 
             context.Books.Remove(book);
@@ -37,7 +37,6 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
         public async Task<IEnumerable<Book>> GetAll()
         {
             return await context.Books
-                .Include(p => p.Author)
                 .ToListAsync();
         }
 
@@ -90,21 +89,6 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
             await context.SaveChangesAsync();
 
             return book;
-        }
-
-        //MaximumAllowedBooks
-        public async Task<bool> MaximumAllowedBooks()
-        {
-            var numberOfBooks = await context.Books.CountAsync();
-
-            if (numberOfBooks >= maximumAllowed)
-            {
-                throw new Exception("Unable to register the book, the maximum allowed has been reached");
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }
