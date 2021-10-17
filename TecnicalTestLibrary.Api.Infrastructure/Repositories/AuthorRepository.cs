@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Infrastructure.Context;
 using TecnicalTestLibrary.Api.Infrastructure.Entities;
@@ -21,7 +19,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
         public async Task Delete(int id)
         {
-            var author = await context.Authors.FindAsync(id);
+            Author author = await context.Authors.FindAsync(id);
 
             if (author == null)
             {
@@ -47,7 +45,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
         public async Task<Author> Insert(Author author)
         {
-            var authorExist = await context.Authors.AnyAsync(p => p.Id == author.Id);
+            bool authorExist = await context.Authors.AnyAsync(p => p.Id == author.Id);
 
             if (authorExist)
             {
@@ -63,7 +61,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
         public async Task<Author> Update(Author author)
         {
-            var authorExist = await context.Authors.AnyAsync(p => p.Id == author.Id);
+            bool authorExist = await context.Authors.AnyAsync(p => p.Id == author.Id);
 
             if (!authorExist)
             {

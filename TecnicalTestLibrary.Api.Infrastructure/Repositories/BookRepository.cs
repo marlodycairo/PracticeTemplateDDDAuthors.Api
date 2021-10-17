@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Infrastructure.Context;
 using TecnicalTestLibrary.Api.Infrastructure.Entities;
@@ -22,7 +20,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
         public async Task Delete(int id)
         {
-            var book = await context.Books.FindAsync(id);
+            Book book = await context.Books.FindAsync(id);
 
             if (book == null)
             {
@@ -47,21 +45,21 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
         public async Task<Book> Insert(Book book)
         {
-            var bookExist = await context.Books.AnyAsync(p => p.Id == book.Id);
+            bool bookExist = await context.Books.AnyAsync(p => p.Id == book.Id);
 
             if (bookExist)
             {
                 throw new Exception("The book already exist.");
             }
 
-            var numberOfBooks = await context.Books.CountAsync();
+            int numberOfBooks = await context.Books.CountAsync();
 
             if (numberOfBooks >= maximumAllowed)
             {
                 throw new Exception("Unable to register the book, the maximum allowed has been reached");
             }
 
-            var authorBookExist = await context.Authors.AnyAsync(p => p.Id == book.AuthorId);
+            bool authorBookExist = await context.Authors.AnyAsync(p => p.Id == book.AuthorId);
 
             if (!authorBookExist)
             {
@@ -77,7 +75,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
         public async Task<Book> Update(Book book)
         {
-            var bookExist = await context.Books.AnyAsync(p => p.Id == book.Id);
+            bool bookExist = await context.Books.AnyAsync(p => p.Id == book.Id);
 
             if (!bookExist)
             {
