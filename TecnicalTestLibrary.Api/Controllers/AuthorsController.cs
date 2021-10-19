@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Application;
 using TecnicalTestLibrary.Api.Domain.Models;
+using TecnicalTestLibrary.Api.Domain.QueryFiltersModels;
 
 namespace TecnicalTestLibrary.Api.Controllers
 {
@@ -21,9 +22,9 @@ namespace TecnicalTestLibrary.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<AuthorDto>> GetAllAuthors()
+        public async Task<IEnumerable<AuthorDto>> GetAllAuthors([FromQuery] AuthorQueryFilterModel filter)
         {
-            var authors = await author.GetAll();
+            var authors = await author.GetAll(filter);
 
             return authors;
         }

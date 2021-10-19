@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Domain;
 using TecnicalTestLibrary.Api.Domain.Models;
+using TecnicalTestLibrary.Api.Domain.QueryFiltersModels;
 using TecnicalTestLibrary.Api.Infrastructure.Entities;
 using TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories;
 
@@ -15,11 +16,13 @@ namespace TecnicalTestLibrary.Api.DomainService
     {
         private readonly IAuthorRepository authorRepository;
         private readonly IMapper mapper;
+        private readonly IBookRepository bookRepository;
 
-        public AuthorDomainService(IAuthorRepository authorRepository, IMapper mapper)
+        public AuthorDomainService(IAuthorRepository authorRepository, IMapper mapper, IBookRepository bookRepository)
         {
             this.authorRepository = authorRepository;
             this.mapper = mapper;
+            this.bookRepository = bookRepository;
         }
 
         public async Task Delete(int id)
@@ -27,13 +30,28 @@ namespace TecnicalTestLibrary.Api.DomainService
             await authorRepository.Delete(id);
         }
 
-        public async Task<IEnumerable<AuthorDto>> GetAll()
+        public async Task<IEnumerable<AuthorDto>> GetAll(AuthorQueryFilterModel filter)
         {
-            var authors = await authorRepository.GetAll();
+            var authorsRepo = await authorRepository.GetAll();
 
-            var authorsDto = mapper.Map<IEnumerable<AuthorDto>>(authors);
+            var authors = mapper.Map<IEnumerable<AuthorDto>>(authorsRepo);
 
-            return authorsDto;
+            if (filter.Id != 0)
+            {
+                authors = authors.Where(p => p.Id == filter.Id);
+            }
+
+            if (filter.FullName != null)
+            {
+                authors = authors.Where(p => p.FullName.StartsWith(filter.FullName, StringComparison.CurrentCultureIgnoreCase) == filter.FullName.StartsWith(filter.FullName, StringComparison.CurrentCultureIgnoreCase)).OrderBy(p => p.FullName).ToList();
+            }
+
+            if (filter.CityOrigin != null)
+            {
+                authors = authors.Where(p => p.CityOrigin.StartsWith(filter.CityOrigin, StringComparison.CurrentCultureIgnoreCase) == filter.CityOrigin.StartsWith(filter.CityOrigin, StringComparison.CurrentCultureIgnoreCase)).OrderBy(p => p.CityOrigin).ToList();
+            }
+
+            return authors;
         }
 
         public async Task<AuthorDto> GetById(int id)
