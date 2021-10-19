@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Domain;
 using TecnicalTestLibrary.Api.Domain.Models;
+using TecnicalTestLibrary.Api.Domain.QueryFiltersModels;
 using TecnicalTestLibrary.Api.Infrastructure.Entities;
 using TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories;
 
@@ -27,13 +28,33 @@ namespace TecnicalTestLibrary.Api.DomainService
             await bookRepository.Delete(id);
         }
 
-        public async Task<IEnumerable<BookDto>> GetAll()
+        public async Task<IEnumerable<BookDto>> GetAll(BookQueryFilterModel filter)
         {
-            var books = await bookRepository.GetAll();
+            var booksRepo = await bookRepository.GetAll();
 
-            var booksDto = mapper.Map<IEnumerable<BookDto>>(books);
+            var books = mapper.Map<IEnumerable<BookDto>>(booksRepo);
 
-            return booksDto;
+            if (filter.Id != 0)
+            {
+                books = books.Where(p => p.Id == filter.Id);
+            }
+
+            if (filter.Title != null)
+            {
+                books = books.Where(p => p.Title.StartsWith(filter.Title, StringComparison.CurrentCultureIgnoreCase) == filter.Title.StartsWith(filter.Title, StringComparison.CurrentCultureIgnoreCase)).OrderBy(p => p.Title).ToList();
+            }
+
+            if (filter.Genre != 0)
+            {
+                books = books.Where(p => Convert.ToString(p.Genre).StartsWith(Convert.ToString(filter.Genre), StringComparison.CurrentCultureIgnoreCase) == Convert.ToString(filter.Genre).StartsWith(Convert.ToString(filter.Genre), StringComparison.CurrentCultureIgnoreCase)).OrderBy(p => p.Title).ToList();
+            }
+
+            if (filter.Date != null)
+            {
+                books = books.Where(p => p.Date.ToString() == filter.Date.ToString());
+            }
+
+            return books;
         }
 
         public async Task<BookDto> GetById(int id)

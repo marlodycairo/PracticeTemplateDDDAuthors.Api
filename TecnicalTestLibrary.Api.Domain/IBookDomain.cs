@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Domain.Models;
+using TecnicalTestLibrary.Api.Domain.QueryFiltersModels;
 
 namespace TecnicalTestLibrary.Api.Domain
 {
     public interface IBookDomain
     {
-        Task<IEnumerable<BookDto>> GetAll();
+        Task<IEnumerable<BookDto>> GetAll(BookQueryFilterModel filter);
         Task<BookDto> GetById(int id);
         Task<BookDto> Insert(BookDto book);
         Task<BookDto> Update(BookDto book);

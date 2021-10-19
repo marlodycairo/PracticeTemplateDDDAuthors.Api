@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Application;
 using TecnicalTestLibrary.Api.Domain;
 using TecnicalTestLibrary.Api.Domain.Models;
+using TecnicalTestLibrary.Api.Domain.QueryFiltersModels;
 
 namespace TecnicalTestLibrary.Api.ApplicationService
 {
@@ -23,9 +24,9 @@ namespace TecnicalTestLibrary.Api.ApplicationService
             await bookDomain.Delete(id);
         }
 
-        public async Task<IEnumerable<BookDto>> GetAll()
+        public async Task<IEnumerable<BookDto>> GetAll(BookQueryFilterModel filter)
         {
-            return await bookDomain.GetAll();
+            return await bookDomain.GetAll(filter);
         }
 
         public async Task<BookDto> GetById(int id)

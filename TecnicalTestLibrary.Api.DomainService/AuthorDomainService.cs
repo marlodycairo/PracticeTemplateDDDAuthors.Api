@@ -16,13 +16,11 @@ namespace TecnicalTestLibrary.Api.DomainService
     {
         private readonly IAuthorRepository authorRepository;
         private readonly IMapper mapper;
-        private readonly IBookRepository bookRepository;
 
-        public AuthorDomainService(IAuthorRepository authorRepository, IMapper mapper, IBookRepository bookRepository)
+        public AuthorDomainService(IAuthorRepository authorRepository, IMapper mapper)
         {
             this.authorRepository = authorRepository;
             this.mapper = mapper;
-            this.bookRepository = bookRepository;
         }
 
         public async Task Delete(int id)

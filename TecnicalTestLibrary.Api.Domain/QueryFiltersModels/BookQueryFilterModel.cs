@@ -11,6 +11,7 @@ namespace TecnicalTestLibrary.Api.Domain.QueryFiltersModels
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public DateTime? Date { get; set; }
         public Genre Genre { get; set; }
         public int AuthorId { get; set; }
     }
