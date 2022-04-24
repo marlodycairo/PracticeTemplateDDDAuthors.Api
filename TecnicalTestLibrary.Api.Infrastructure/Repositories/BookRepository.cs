@@ -11,7 +11,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
     public class BookRepository : IBookRepository
     {
         private readonly ApplicationDbContext context;
-        private const int maximumAllowed = 5;
+        private const int maximumAllowed = 100;
 
         public BookRepository(ApplicationDbContext context)
         {
@@ -57,13 +57,6 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
             if (numberOfBooks >= maximumAllowed)
             {
                 throw new Exception("Unable to register the book, the maximum allowed has been reached");
-            }
-
-            bool authorBookExist = await context.Authors.AnyAsync(p => p.Id == book.AuthorId);
-
-            if (!authorBookExist)
-            {
-                throw new Exception("The author is not registered");
             }
 
             await context.Books.AddAsync(book);
