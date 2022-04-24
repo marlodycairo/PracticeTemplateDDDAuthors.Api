@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Infrastructure.Context;
 using TecnicalTestLibrary.Api.Infrastructure.Entities;
+using TecnicalTestLibrary.Api.Infrastructure.Exceptions;
 using TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories;
 
 namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
@@ -25,7 +26,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
             if (book == null)
             {
-                throw new Exception("The entity is null.");
+                throw new BusinessException("The entity is null.");
             }
 
             context.Books.Remove(book);
@@ -49,7 +50,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
             if (bookExist)
             {
-                throw new Exception("The book already exist.");
+                throw new BusinessException("The book already exist.");
             }
 
             await context.Books.AddAsync(book);
@@ -65,7 +66,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
             if (!bookExist)
             {
-                throw new Exception("The book don't exist.");
+                throw new BusinessException("The book don't exist.");
             }
 
             context.Update(book);
