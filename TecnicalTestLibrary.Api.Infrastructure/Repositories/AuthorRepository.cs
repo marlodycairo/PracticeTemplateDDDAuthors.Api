@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Infrastructure.Context;
 using TecnicalTestLibrary.Api.Infrastructure.Entities;
+using TecnicalTestLibrary.Api.Infrastructure.Exceptions;
 using TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories;
 
 namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
@@ -25,7 +26,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
             if (author == null)
             {
-                throw new Exception("The author is null.");
+                throw new BusinessException("The author is null.");
             }
 
             context.Authors.Remove(author);
@@ -51,7 +52,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
             if (authorExist)
             {
-                throw new Exception("The author already exist.");
+                throw new BusinessException("The author already exist.");
             }
 
             await context.Authors.AddAsync(author);
@@ -67,7 +68,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
             if (!authorExist)
             {
-                throw new Exception("The author don't exist.");
+                throw new BusinessException("The author don't exist.");
             }
 
             context.Update(author);
