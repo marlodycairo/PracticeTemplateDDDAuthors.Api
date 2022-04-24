@@ -40,7 +40,7 @@ namespace TecnicalTestLibrary.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<BookDto>> CreateBook(BookDto bookDto)
         {
-            var newBook = await book.Insert(bookDto);
+            var newBook = await book.CreateBook(bookDto);
 
             return Ok(newBook);
         }

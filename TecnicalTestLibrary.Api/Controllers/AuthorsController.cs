@@ -40,7 +40,7 @@ namespace TecnicalTestLibrary.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<AuthorDto>> CreateAuthor(AuthorDto authorDto)
         {
-            var newAuthor = await author.Insert(authorDto);
+            var newAuthor = await author.CreateAuthor(authorDto);
 
             return Ok(newAuthor);
         }

@@ -43,7 +43,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
             return await context.Authors.FindAsync(id);
         }
 
-        public async Task<Author> Insert(Author author)
+        public async Task<Author> CreateAuthor(Author author)
         {
             bool authorExist = await context.Authors.AnyAsync(p => p.Id == author.Id);
 

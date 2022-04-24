@@ -34,9 +34,9 @@ namespace TecnicalTestLibrary.Api.ApplicationService
             return await authorDomain.GetById(id);
         }
 
-        public async Task<AuthorDto> Insert(AuthorDto author)
+        public async Task<AuthorDto> CreateAuthor(AuthorDto author)
         {
-            return await authorDomain.Insert(author);
+            return await authorDomain.CreateAuthor(author);
         }
 
         public async Task<AuthorDto> Update(AuthorDto author)

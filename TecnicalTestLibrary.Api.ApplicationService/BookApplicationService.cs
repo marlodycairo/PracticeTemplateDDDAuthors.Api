@@ -34,9 +34,9 @@ namespace TecnicalTestLibrary.Api.ApplicationService
             return await bookDomain.GetById(id);
         }
 
-        public async Task<BookDto> Insert(BookDto book)
+        public async Task<BookDto> CreateBook(BookDto book)
         {
-            return await bookDomain.Insert(book);
+            return await bookDomain.CreateBook(book);
         }
 
         public async Task<BookDto> Update(BookDto book)

@@ -12,7 +12,7 @@ namespace TecnicalTestLibrary.Api.Application
     {
         Task<IEnumerable<BookDto>> GetAll(BookQueryFilterModel filter);
         Task<BookDto> GetById(int id);
-        Task<BookDto> Insert(BookDto book);
+        Task<BookDto> CreateBook(BookDto book);
         Task<BookDto> Update(BookDto book);
         Task Delete(int id);
     }

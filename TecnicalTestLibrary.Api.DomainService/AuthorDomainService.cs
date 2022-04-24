@@ -61,11 +61,11 @@ namespace TecnicalTestLibrary.Api.DomainService
             return authorDto;
         }
 
-        public async Task<AuthorDto> Insert(AuthorDto authorDto)
+        public async Task<AuthorDto> CreateAuthor(AuthorDto authorDto)
         {
             var author = mapper.Map<Author>(authorDto);
 
-            await authorRepository.Insert(author);
+            await authorRepository.CreateAuthor(author);
 
             return authorDto;
         }

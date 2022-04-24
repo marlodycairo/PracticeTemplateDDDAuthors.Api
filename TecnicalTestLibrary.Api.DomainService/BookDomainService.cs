@@ -66,11 +66,11 @@ namespace TecnicalTestLibrary.Api.DomainService
             return bookDto;
         }
 
-        public async Task<BookDto> Insert(BookDto bookDto)
+        public async Task<BookDto> CreateBook(BookDto bookDto)
         {
             var book = mapper.Map<Book>(bookDto);
 
-            await bookRepository.Insert(book);
+            await bookRepository.CreateBook(book);
 
             return bookDto;
         }

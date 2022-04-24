@@ -11,7 +11,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories
     {
         Task<IEnumerable<Author>> GetAll();
         Task<Author> GetById(int id);
-        Task<Author> Insert(Author author);
+        Task<Author> CreateAuthor(Author author);
         Task<Author> Update(Author author);
         Task Delete(int id);
     }
