@@ -14,17 +14,17 @@ namespace TecnicalTestLibrary.Api.Controllers
     [ApiController]
     public class AuthorsController : ControllerBase
     {
-        private readonly IAuthorApplication author;
+        private readonly IAuthorApplication _author;
 
         public AuthorsController(IAuthorApplication author)
         {
-            this.author = author;
+            _author = author;
         }
 
         [HttpGet]
         public async Task<IEnumerable<AuthorDto>> GetAllAuthors([FromQuery] AuthorQueryFilterModel filter)
         {
-            var authors = await author.GetAll(filter);
+            var authors = await _author.GetAll(filter);
 
             return authors;
         }
@@ -32,7 +32,7 @@ namespace TecnicalTestLibrary.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AuthorDto>> GetAuthorById(int id)
         {
-            var authorById = await author.GetById(id);
+            var authorById = await _author.GetById(id);
 
             return Ok(authorById);
         }
@@ -40,7 +40,7 @@ namespace TecnicalTestLibrary.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<AuthorDto>> CreateAuthor(AuthorDto authorDto)
         {
-            var newAuthor = await author.CreateAuthor(authorDto);
+            var newAuthor = await _author.CreateAuthor(authorDto);
 
             return Ok(newAuthor);
         }
@@ -48,7 +48,7 @@ namespace TecnicalTestLibrary.Api.Controllers
         [HttpPut]
         public async Task<ActionResult<AuthorDto>> UpdateAuthor(AuthorDto authorDto)
         {
-            var authorUpdated = await author.Update(authorDto);
+            var authorUpdated = await _author.Update(authorDto);
 
             return Ok(authorUpdated);
         }
@@ -56,7 +56,7 @@ namespace TecnicalTestLibrary.Api.Controllers
         [HttpDelete("{id}")]
         public async Task DeleteAuthor(int id)
         {
-            await author.Delete(id);
+            await _author.Delete(id);
         }
     }
 }

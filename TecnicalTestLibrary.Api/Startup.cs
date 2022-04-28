@@ -56,7 +56,10 @@ namespace TecnicalTestLibrary.Api
             services.AddScoped<IBookDomain, BookDomainService>();
             services.AddScoped<IBookApplication, BookApplicationService>();
 
-            services.AddControllers().AddJsonOptions(opt =>
+            services.AddControllers(options => 
+            {
+                options.Filters.Add<GlobalExceptionFilter>();
+            }).AddJsonOptions(opt =>
                 opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
             services.AddSwaggerGen(c =>

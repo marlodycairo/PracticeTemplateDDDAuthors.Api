@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Infrastructure.Context;
 using TecnicalTestLibrary.Api.Infrastructure.Entities;
+using TecnicalTestLibrary.Api.Infrastructure.Exceptions;
 using TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories;
 
 namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
@@ -11,7 +12,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
     public class BookRepository : IBookRepository
     {
         private readonly ApplicationDbContext context;
-        private const int maximumAllowed = 100;
+        private const int maximumAllowed = 5;
 
         public BookRepository(ApplicationDbContext context)
         {
@@ -24,7 +25,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
             if (book == null)
             {
-                throw new Exception("The book is null.");
+                throw new BusinessException("The book is null.");
             }
 
             context.Books.Remove(book);
@@ -49,14 +50,14 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
             if (bookExist)
             {
-                throw new Exception("The book already exist.");
+                throw new BusinessException("The book already exist.");
             }
 
             int numberOfBooks = await context.Books.CountAsync();
 
             if (numberOfBooks >= maximumAllowed)
             {
-                throw new Exception("Unable to register the book, the maximum allowed has been reached");
+                throw new BusinessException("Unable to register the book, the maximum allowed has been reached");
             }
 
             await context.Books.AddAsync(book);
@@ -72,7 +73,7 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
             if (!bookExist)
             {
-                throw new Exception("The book don't exist.");
+                throw new BusinessException("The book don't exist.");
             }
 
             context.Update(book);

@@ -30,25 +30,25 @@ namespace TecnicalTestLibrary.Api.DomainService
 
         public async Task<IEnumerable<AuthorDto>> GetAll(AuthorQueryFilterModel filter)
         {
-            var authorsRepo = await authorRepository.GetAll();
+            var authorsRepo = (await authorRepository.GetAll()).ToList();
 
-            var authors = mapper.Map<IEnumerable<AuthorDto>>(authorsRepo);
 
             if (filter.Id != 0)
             {
-                authors = authors.Where(p => p.Id == filter.Id);
+                authorsRepo = authorsRepo.Where(p => p.Id == filter.Id).ToList();
             }
 
             if (filter.FullName != null)
             {
-                authors = authors.Where(p => p.FullName.StartsWith(filter.FullName, StringComparison.CurrentCultureIgnoreCase) == filter.FullName.StartsWith(filter.FullName, StringComparison.CurrentCultureIgnoreCase)).OrderBy(p => p.FullName).ToList();
+                authorsRepo = authorsRepo.Where(p => p.FullName.StartsWith(filter.FullName, StringComparison.CurrentCultureIgnoreCase) == filter.FullName.StartsWith(filter.FullName, StringComparison.CurrentCultureIgnoreCase)).OrderBy(p => p.FullName).ToList();
             }
 
             if (filter.CityOrigin != null)
             {
-                authors = authors.Where(p => p.CityOrigin.StartsWith(filter.CityOrigin, StringComparison.CurrentCultureIgnoreCase) == filter.CityOrigin.StartsWith(filter.CityOrigin, StringComparison.CurrentCultureIgnoreCase)).OrderBy(p => p.CityOrigin).ToList();
+                authorsRepo = authorsRepo.Where(p => p.CityOrigin.StartsWith(filter.CityOrigin, StringComparison.CurrentCultureIgnoreCase) == filter.CityOrigin.StartsWith(filter.CityOrigin, StringComparison.CurrentCultureIgnoreCase)).OrderBy(p => p.CityOrigin).ToList();
             }
 
+            var authors = mapper.Map<IEnumerable<AuthorDto>>(authorsRepo);
             return authors;
         }
 
