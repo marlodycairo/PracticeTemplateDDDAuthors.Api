@@ -49,7 +49,8 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
         public async Task<Author> UpdateEntityAsync(Author author)
         {
-            context.Authors.Update(author);
+            context.ChangeTracker.Clear();
+            context.Update(author);
 
             await context.SaveChangesAsync();
 
