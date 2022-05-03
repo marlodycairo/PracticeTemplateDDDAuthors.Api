@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Infrastructure.Context;
 using TecnicalTestLibrary.Api.Infrastructure.Entities;
-using TecnicalTestLibrary.Api.Infrastructure.Exceptions;
 using TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories;
 
 namespace TecnicalTestLibrary.Api.Infrastructure.Repositories

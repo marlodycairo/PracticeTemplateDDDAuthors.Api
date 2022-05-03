@@ -7,7 +7,7 @@ using TecnicalTestLibrary.Api.Infrastructure.Entities;
 
 namespace TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories
 {
-    public interface IBookRepository : IBaseRepository<Book>
+    public interface IBookRepository //: IBaseRepository<Book>
     {
         Task<IEnumerable<Book>> GetAllEntitiesAsync();
         Task<Book> GetEntityByIdAsync(int id);
