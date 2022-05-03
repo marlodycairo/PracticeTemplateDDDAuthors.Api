@@ -15,6 +15,5 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Entities
         public DateTime BirthDate { get; set; }
         public string CityOrigin { get; set; }
         public string EMail { get; set; }
-        public ICollection<Book> Books { get; set; }
     }
 }

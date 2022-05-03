@@ -15,6 +15,5 @@ namespace TecnicalTestLibrary.Api.Domain.Models
         public Genre Genre { get; set; }
         public int NumberOfPages { get; set; }
         public int AuthorId { get; set; }
-        public AuthorDto AuthorDto { get; set; }
     }
 }

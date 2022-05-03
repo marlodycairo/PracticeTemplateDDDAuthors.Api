@@ -13,6 +13,5 @@ namespace TecnicalTestLibrary.Api.Domain.Models
         public DateTime BirthDate { get; set; }
         public string CityOrigin { get; set; }
         public string EMail { get; set; }
-        public ICollection<BookDto> BookDtos { get; set; }
     }
 }

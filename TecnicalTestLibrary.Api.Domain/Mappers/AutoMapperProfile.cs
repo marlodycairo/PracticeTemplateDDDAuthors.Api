@@ -13,17 +13,17 @@ namespace TecnicalTestLibrary.Api.Domain.Mappers
     {
         public AutoMapperProfile()
         {
-            CreateMap<Author, AuthorDto>()
-                .ForMember(dest => dest.BookDtos, opt => opt.MapFrom(src => src.Books));
+            CreateMap<Author, AuthorDto>();
+                //.ForMember(dest => dest.BookDtos, opt => opt.MapFrom(src => src.Books));
 
-            CreateMap<AuthorDto, Author>()
-                .ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.BookDtos));
+            CreateMap<AuthorDto, Author>();
+                //.ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.BookDtos));
 
-            CreateMap<Book, BookDto>()
-                .ForMember(dest => dest.AuthorDto, opt => opt.MapFrom(src => src.Author));
+            CreateMap<Book, BookDto>();
+                //.ForMember(dest => dest.AuthorDto, opt => opt.MapFrom(src => src.Author));
 
-            CreateMap<BookDto, Book>()
-                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.AuthorDto));
+            CreateMap<BookDto, Book>();
+                //.ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.AuthorDto));
         }
     }
 }
