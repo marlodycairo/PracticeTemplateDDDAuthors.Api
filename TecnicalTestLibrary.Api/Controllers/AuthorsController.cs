@@ -45,9 +45,9 @@ namespace TecnicalTestLibrary.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<AuthorDto>> UpdateAuthor(AuthorDto authorDto)
+        public async Task<ActionResult<UpdateAuthor>> UpdateAuthor(UpdateAuthor updateAuthor)
         {
-            var authorUpdated = await author.Update(authorDto);
+            var authorUpdated = await author.Update(updateAuthor);
 
             return Ok(authorUpdated);
         }

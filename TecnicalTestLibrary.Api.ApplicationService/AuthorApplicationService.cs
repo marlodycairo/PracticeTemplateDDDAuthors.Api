@@ -38,7 +38,7 @@ namespace TecnicalTestLibrary.Api.ApplicationService
             return await authorDomain.Insert(author);
         }
 
-        public async Task<AuthorDto> Update(AuthorDto author)
+        public async Task<UpdateAuthor> Update(UpdateAuthor author)
         {
             return await authorDomain.Update(author);
         }

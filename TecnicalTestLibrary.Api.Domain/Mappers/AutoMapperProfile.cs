@@ -17,7 +17,11 @@ namespace TecnicalTestLibrary.Api.Domain.Mappers
                 //.ForMember(dest => dest.BookDtos, opt => opt.MapFrom(src => src.Books));
 
             CreateMap<AuthorDto, Author>();
-                //.ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.BookDtos));
+            //.ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.BookDtos));
+
+            CreateMap<Author, UpdateAuthor>();
+
+            CreateMap<UpdateAuthor, Author>();
 
             CreateMap<Book, BookDto>();
                 //.ForMember(dest => dest.AuthorDto, opt => opt.MapFrom(src => src.Author));

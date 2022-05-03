@@ -44,7 +44,8 @@ namespace TecnicalTestLibrary.Api
 
             services.AddDbContext<ApplicationDbContext>(options => 
             {
-                options.UseSqlServer(Configuration.GetConnectionString("ConnectionDB"));
+                options.UseSqlServer(Configuration.GetConnectionString("ConnectionDB"))
+                .EnableSensitiveDataLogging();
             });
 
             services.AddScoped<IAuthorRepository, AuthorRepository>();

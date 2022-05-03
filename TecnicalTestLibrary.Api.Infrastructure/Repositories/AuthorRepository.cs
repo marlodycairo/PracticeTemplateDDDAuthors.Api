@@ -62,12 +62,13 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 
         public async Task<Author> Update(Author author)
         {
-            var authorExist = await context.Authors.AnyAsync(p => p.Id == author.Id);
+            //var authorExist = await context.Authors.AnyAsync(p => p.Id == author.Id);
 
-            if (!authorExist)
-            {
-                throw new Exception("The author don't exist.");
-            }
+            //if (!authorExist)
+            //{
+            //    throw new Exception("The author don't exist.");
+            //}
+            context.ChangeTracker.Clear();
 
             context.Update(author);
 

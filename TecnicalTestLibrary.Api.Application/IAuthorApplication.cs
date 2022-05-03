@@ -12,7 +12,7 @@ namespace TecnicalTestLibrary.Api.Application
         Task<IEnumerable<AuthorDto>> GetAll();
         Task<AuthorDto> GetById(int id);
         Task<AuthorDto> Insert(AuthorDto author);
-        Task<AuthorDto> Update(AuthorDto author);
+        Task<UpdateAuthor> Update(UpdateAuthor author);
         Task Delete(int id);
     }
 }

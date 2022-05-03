@@ -54,13 +54,13 @@ namespace TecnicalTestLibrary.Api.DomainService
             return authorDto;
         }
 
-        public async Task<AuthorDto> Update(AuthorDto authorDto)
+        public async Task<UpdateAuthor> Update(UpdateAuthor author)
         {
-            var author = mapper.Map<Author>(authorDto);
+            var _author = mapper.Map<Author>(author);
 
-            await authorRepository.Update(author);
+            await authorRepository.Update(_author);
 
-            return authorDto;
+            return author;
         }
     }
 }
