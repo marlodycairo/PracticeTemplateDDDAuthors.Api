@@ -7,12 +7,12 @@ using TecnicalTestLibrary.Api.Infrastructure.Entities;
 
 namespace TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories
 {
-    public interface IBookRepository
+    public interface IBookRepository : IBaseRepository<Book>
     {
-        Task<IEnumerable<Book>> GetAll();
-        Task<Book> GetById(int id);
-        Task<Book> CreateBook(Book book);
-        Task<Book> Update(Book book);
-        Task Delete(int id);
+        Task<IEnumerable<Book>> GetAllEntitiesAsync();
+        Task<Book> GetEntityByIdAsync(int id);
+        Task<Book> CreateEntityAsync(Book book);
+        Task<Book> UpdateEntityAsync(Book book);
+        Task DeleteEntityAsync(int id);
     }
 }

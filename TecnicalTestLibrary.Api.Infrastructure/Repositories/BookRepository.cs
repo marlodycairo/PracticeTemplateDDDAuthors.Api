@@ -9,74 +9,72 @@ using TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories;
 
 namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 {
-    public class BookRepository : IBookRepository
+    public class BookRepository : BaseRepository<Book>, IBookRepository
     {
         private readonly ApplicationDbContext context;
         private const int maximumAllowed = 5;
 
-        public BookRepository(ApplicationDbContext context)
+        public BookRepository(ApplicationDbContext context) : base(context)
         {
-            this.context = context;
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteEntityAsync(int id)
         {
-            Book book = await context.Books.FindAsync(id);
+            var book = await _entities.FindAsync(id);
 
-            if (book == null)
-            {
-                throw new BusinessException("The book is null.");
-            }
+            //if (book == null)
+            //{
+            //    throw new BusinessException("The book is null.");
+            //}
 
-            context.Books.Remove(book);
+            _entities.Remove(book);
 
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Book>> GetAll()
+        public async Task<IEnumerable<Book>> GetAllEntitiesAsync()
         {
-            return await context.Books
-                .ToListAsync();
+            return await _entities.ToListAsync();
         }
 
-        public async Task<Book> GetById(int id)
+        public async Task<Book> GetEntityByIdAsync(int id)
         {
-            return await context.Books.FindAsync(id);
+            return await _entities.FindAsync(id);
         }
 
-        public async Task<Book> CreateBook(Book book)
+        public async Task<Book> CreateEntityAsync(Book book)
         {
-            bool bookExist = await context.Books.AnyAsync(p => p.Id == book.Id);
+            //bool bookExist = await context.Books.AnyAsync(p => p.Id == book.Id);
 
-            if (bookExist)
-            {
-                throw new BusinessException("The book already exist.");
-            }
+            //if (bookExist)
+            //{
+            //    throw new BusinessException("The book already exist.");
+            //}
 
-            int numberOfBooks = await context.Books.CountAsync();
+            //int numberOfBooks = await context.Books.CountAsync();
 
-            if (numberOfBooks >= maximumAllowed)
-            {
-                throw new BusinessException("Unable to register the book, the maximum allowed has been reached");
-            }
+            //if (numberOfBooks >= maximumAllowed)
+            //{
+            //    throw new BusinessException("Unable to register the book, the maximum allowed has been reached");
+            //}
 
-            await context.Books.AddAsync(book);
+            await _entities.AddAsync(book);
 
             await context.SaveChangesAsync();
 
             return book;
         }
 
-        public async Task<Book> Update(Book book)
+        public async Task<Book> UpdateEntityAsync(Book book)
         {
-            bool bookExist = await context.Books.AnyAsync(p => p.Id == book.Id);
+            //bool bookExist = await context.Books.AnyAsync(p => p.Id == book.Id);
 
-            if (!bookExist)
-            {
-                throw new BusinessException("The book don't exist.");
-            }
+            //if (!bookExist)
+            //{
+            //    throw new BusinessException("The book don't exist.");
+            //}
 
-            context.Update(book);
+            _entities.Update(book);
 
             await context.SaveChangesAsync();
 

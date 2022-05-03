@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Domain;
-using TecnicalTestLibrary.Api.Domain.Models;
+using TecnicalTestLibrary.Api.Domain.Commons.DTOs;
 using TecnicalTestLibrary.Api.Domain.QueryFiltersModels;
 using TecnicalTestLibrary.Api.Infrastructure.Entities;
 using TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories;
@@ -23,16 +23,24 @@ namespace TecnicalTestLibrary.Api.DomainService
             this.mapper = mapper;
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAuthorById(int id)
         {
-            await authorRepository.Delete(id);
+            await authorRepository.DeleteEntityAsync(id);
         }
 
-        public async Task<IEnumerable<AuthorDto>> GetAll(AuthorQueryFilterModel filter)
+        public async Task<IEnumerable<AuthorDto>> GetAllAuthors(AuthorQueryFilterModel filter)
         {
-            var authorsRepo = (await authorRepository.GetAll()).ToList();
+            var authorsRepo = (await authorRepository.GetAllEntitiesAsync()).ToList();
+            
+            authorsRepo = Filtros(filter, authorsRepo);
 
+            var authors = mapper.Map<IEnumerable<AuthorDto>>(authorsRepo);
 
+            return authors;
+        }
+
+        private static List<Author> Filtros(AuthorQueryFilterModel filter, List<Author> authorsRepo)
+        {
             if (filter.Id != 0)
             {
                 authorsRepo = authorsRepo.Where(p => p.Id == filter.Id).ToList();
@@ -48,35 +56,34 @@ namespace TecnicalTestLibrary.Api.DomainService
                 authorsRepo = authorsRepo.Where(p => p.CityOrigin.StartsWith(filter.CityOrigin, StringComparison.CurrentCultureIgnoreCase) == filter.CityOrigin.StartsWith(filter.CityOrigin, StringComparison.CurrentCultureIgnoreCase)).OrderBy(p => p.CityOrigin).ToList();
             }
 
-            var authors = mapper.Map<IEnumerable<AuthorDto>>(authorsRepo);
-            return authors;
+            return authorsRepo;
         }
 
-        public async Task<AuthorDto> GetById(int id)
+        public async Task<AuthorDto> GetAuthorById(int id)
         {
-            var author = await authorRepository.GetById(id);
+            var author = await authorRepository.GetEntityByIdAsync(id);
 
             var authorDto = mapper.Map<AuthorDto>(author);
 
             return authorDto;
         }
 
-        public async Task<AuthorDto> CreateAuthor(AuthorDto authorDto)
+        public async Task<CreateANewAuthor> CreateAuthor(CreateANewAuthor author)
         {
-            var author = mapper.Map<Author>(authorDto);
+            var newAuthor = mapper.Map<Author>(author);
 
-            await authorRepository.CreateAuthor(author);
+            await authorRepository.CreateEntityAsync(newAuthor);
 
-            return authorDto;
+            return author;
         }
 
-        public async Task<AuthorDto> Update(AuthorDto authorDto)
+        public async Task<UpdateAuthor> UpdateAuthor(UpdateAuthor author)
         {
-            var author = mapper.Map<Author>(authorDto);
+            var _author = mapper.Map<Author>(author);
 
-            await authorRepository.Update(author);
+            await authorRepository.UpdateEntityAsync(_author);
 
-            return authorDto;
+            return author;
         }
     }
 }

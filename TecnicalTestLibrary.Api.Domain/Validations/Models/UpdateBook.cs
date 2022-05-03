@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TecnicalTestLibrary.Api.Infrastructure.Entities;
 using TecnicalTestLibrary.Api.Infrastructure.Enums;
 
-namespace TecnicalTestLibrary.Api.Infrastructure.Entities
+namespace TecnicalTestLibrary.Api.Domain.Commons.DTOs
 {
-    public class Book : BaseEntity
+    public class UpdateBook : BaseEntity
     {
         //public int Id { get; set; }
         public string Title { get; set; }

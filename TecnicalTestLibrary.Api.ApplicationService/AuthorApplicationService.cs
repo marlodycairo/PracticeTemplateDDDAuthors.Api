@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Application;
 using TecnicalTestLibrary.Api.Domain;
-using TecnicalTestLibrary.Api.Domain.Models;
+using TecnicalTestLibrary.Api.Domain.Commons.DTOs;
 using TecnicalTestLibrary.Api.Domain.QueryFiltersModels;
 
 namespace TecnicalTestLibrary.Api.ApplicationService
@@ -19,29 +19,29 @@ namespace TecnicalTestLibrary.Api.ApplicationService
             this.authorDomain = authorDomain;
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAuthorById(int id)
         {
-            await authorDomain.Delete(id);
+            await authorDomain.DeleteAuthorById(id);
         }
 
-        public async Task<IEnumerable<AuthorDto>> GetAll(AuthorQueryFilterModel filter)
+        public async Task<IEnumerable<AuthorDto>> GetAllAuthors(AuthorQueryFilterModel filter)
         {
-            return await authorDomain.GetAll(filter);
+            return await authorDomain.GetAllAuthors(filter);
         }
 
-        public async Task<AuthorDto> GetById(int id)
+        public async Task<AuthorDto> GetAuthorById(int id)
         {
-            return await authorDomain.GetById(id);
+            return await authorDomain.GetAuthorById(id);
         }
 
-        public async Task<AuthorDto> CreateAuthor(AuthorDto author)
+        public async Task<CreateANewAuthor> CreateAuthor(CreateANewAuthor author)
         {
             return await authorDomain.CreateAuthor(author);
         }
 
-        public async Task<AuthorDto> Update(AuthorDto author)
+        public async Task<UpdateAuthor> UpdateAuthor(UpdateAuthor author)
         {
-            return await authorDomain.Update(author);
+            return await authorDomain.UpdateAuthor(author);
         }
     }
 }

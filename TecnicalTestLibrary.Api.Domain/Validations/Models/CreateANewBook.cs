@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Infrastructure.Enums;
 
-namespace TecnicalTestLibrary.Api.Infrastructure.Entities
+namespace TecnicalTestLibrary.Api.Domain.Commons.DTOs
 {
-    public class Book : BaseEntity
+    public class CreateANewBook
     {
-        //public int Id { get; set; }
         public string Title { get; set; }
         public DateTime Date { get; set; }
         public Genre Genre { get; set; }

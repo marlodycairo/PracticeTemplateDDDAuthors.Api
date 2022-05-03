@@ -9,7 +9,7 @@ using TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories;
 
 namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
 {
-    public class AuthorRepository : IAuthorRepository
+    public class AuthorRepository : IAuthorRepository //IBaseRepository<Author>, IAuthorRepository
     {
         private readonly ApplicationDbContext context;
 
@@ -18,40 +18,28 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
             this.context = context;
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteEntityAsync(int id)
         {
-            Author author = await context.Authors.FindAsync(id);
-
-            if (author == null)
-            {
-                throw new BusinessException("The author is null.");
-            }
+            var author = await context.Authors.FindAsync(id);
 
             context.Authors.Remove(author);
 
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Author>> GetAll()
+        public async Task<IEnumerable<Author>> GetAllEntitiesAsync()
         {
             return await context.Authors
                 .ToListAsync();
         }
 
-        public async Task<Author> GetById(int id)
+        public async Task<Author> GetEntityByIdAsync(int id)
         {
             return await context.Authors.FindAsync(id);
         }
 
-        public async Task<Author> CreateAuthor(Author author)
+        public async Task<Author> CreateEntityAsync(Author author)
         {
-            bool authorExist = await context.Authors.AnyAsync(p => p.Id == author.Id);
-
-            if (authorExist)
-            {
-                throw new BusinessException("The author already exist.");
-            }
-
             await context.Authors.AddAsync(author);
 
             await context.SaveChangesAsync();
@@ -59,16 +47,9 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories
             return author;
         }
 
-        public async Task<Author> Update(Author author)
+        public async Task<Author> UpdateEntityAsync(Author author)
         {
-            bool authorExist = await context.Authors.AnyAsync(p => p.Id == author.Id);
-
-            if (!authorExist)
-            {
-                throw new BusinessException("The author don't exist.");
-            }
-
-            context.Update(author);
+            context.Authors.Update(author);
 
             await context.SaveChangesAsync();
 

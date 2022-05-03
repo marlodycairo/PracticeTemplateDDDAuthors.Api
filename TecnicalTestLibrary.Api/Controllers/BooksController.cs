@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Application;
-using TecnicalTestLibrary.Api.Domain.Models;
+using TecnicalTestLibrary.Api.Domain.Commons.DTOs;
 using TecnicalTestLibrary.Api.Domain.QueryFiltersModels;
 
 namespace TecnicalTestLibrary.Api.Controllers
@@ -14,17 +14,17 @@ namespace TecnicalTestLibrary.Api.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly IBookApplication book;
+        private readonly IBookApplication _book;
 
         public BooksController(IBookApplication book)
         {
-            this.book = book;
+            _book = book;
         }
 
         [HttpGet]
         public async Task<IEnumerable<BookDto>> GetAllBooks([FromQuery]BookQueryFilterModel filter)
         {
-            var books = await book.GetAll(filter);
+            var books = await _book.GetAllBooks(filter);
 
             return books;
         }
@@ -32,23 +32,23 @@ namespace TecnicalTestLibrary.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BookDto>> GetBookById(int id)
         {
-            var bookById = await book.GetById(id);
+            var bookById = await _book.GetAuthorById(id);
 
             return Ok(bookById);
         }
 
         [HttpPost]
-        public async Task<ActionResult<BookDto>> CreateBook(BookDto bookDto)
+        public async Task<ActionResult<CreateANewBook>> CreateBook(CreateANewBook book)
         {
-            var newBook = await book.CreateBook(bookDto);
+            var newBook = await _book.CreateBook(book);
 
             return Ok(newBook);
         }
 
         [HttpPut]
-        public async Task<ActionResult<BookDto>> UpdateBook(BookDto bookDto)
+        public async Task<ActionResult<UpdateBook>> UpdateBook(UpdateBook book)
         {
-            var bookUpdated = await book.Update(bookDto);
+            var bookUpdated = await _book.UpdateBook(book);
 
             return Ok(bookUpdated);
         }
@@ -56,7 +56,7 @@ namespace TecnicalTestLibrary.Api.Controllers
         [HttpDelete("{id}")]
         public async Task DeleteBook(int id)
         {
-            await book.Delete(id);
+            await _book.DeleteBook(id);
         }
     }
 }

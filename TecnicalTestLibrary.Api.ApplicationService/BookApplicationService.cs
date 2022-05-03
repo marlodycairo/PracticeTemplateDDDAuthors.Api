@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Application;
 using TecnicalTestLibrary.Api.Domain;
-using TecnicalTestLibrary.Api.Domain.Models;
+using TecnicalTestLibrary.Api.Domain.Commons.DTOs;
 using TecnicalTestLibrary.Api.Domain.QueryFiltersModels;
 
 namespace TecnicalTestLibrary.Api.ApplicationService
@@ -19,29 +19,29 @@ namespace TecnicalTestLibrary.Api.ApplicationService
             this.bookDomain = bookDomain;
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteBook(int id)
         {
-            await bookDomain.Delete(id);
+            await bookDomain.DeleteBook(id);
         }
 
-        public async Task<IEnumerable<BookDto>> GetAll(BookQueryFilterModel filter)
+        public async Task<IEnumerable<BookDto>> GetAllBooks(BookQueryFilterModel filter)
         {
-            return await bookDomain.GetAll(filter);
+            return await bookDomain.GetAllBooks(filter);
         }
 
-        public async Task<BookDto> GetById(int id)
+        public async Task<BookDto> GetAuthorById(int id)
         {
-            return await bookDomain.GetById(id);
+            return await bookDomain.GetBookById(id);
         }
 
-        public async Task<BookDto> CreateBook(BookDto book)
+        public async Task<CreateANewBook> CreateBook(CreateANewBook book)
         {
             return await bookDomain.CreateBook(book);
         }
 
-        public async Task<BookDto> Update(BookDto book)
+        public async Task<UpdateBook> UpdateBook(UpdateBook book)
         {
-            return await bookDomain.Update(book);
+            return await bookDomain.UpdateBook(book);
         }
     }
 }

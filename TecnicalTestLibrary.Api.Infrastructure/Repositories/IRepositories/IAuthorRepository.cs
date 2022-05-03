@@ -9,10 +9,10 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Repositories.IRepositories
 {
     public interface IAuthorRepository
     {
-        Task<IEnumerable<Author>> GetAll();
-        Task<Author> GetById(int id);
-        Task<Author> CreateAuthor(Author author);
-        Task<Author> Update(Author author);
-        Task Delete(int id);
+        Task<IEnumerable<Author>> GetAllEntitiesAsync();
+        Task<Author> GetEntityByIdAsync(int id);
+        Task<Author> CreateEntityAsync(Author author);
+        Task<Author> UpdateEntityAsync(Author author);
+        Task DeleteEntityAsync(int id);
     }
 }

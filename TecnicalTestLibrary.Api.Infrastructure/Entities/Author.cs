@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace TecnicalTestLibrary.Api.Infrastructure.Entities
 {
-    public class Author
+    public class Author : BaseEntity
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public string FullName { get; set; }
         public DateTime BirthDate { get; set; }
         public string CityOrigin { get; set; }
         public string EMail { get; set; }
-        public ICollection<Book> Books { get; set; }
     }
 }
