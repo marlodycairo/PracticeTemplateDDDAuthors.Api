@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TecnicalTestLibrary.Api.Infrastructure.Entities;
 
 namespace TecnicalTestLibrary.Api.Infrastructure.Context
@@ -20,8 +15,6 @@ namespace TecnicalTestLibrary.Api.Infrastructure.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-
         }
     }
 }
